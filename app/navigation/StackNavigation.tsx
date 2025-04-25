@@ -7,9 +7,10 @@ import SplashScreen from '../features/splashScreen';
 import {navigationRef} from '../services/NavigationService';
 import {
   appInitializedSelector,
+  notificationAllowedSelector,
   profileSelector,
 } from '../store/appReducer/selectors';
-import Home from '../features/home';
+import DashboardContainer from '../features/home/containers/DashboardContainer';
 import NotificationAllowContainer from '../features/home/containers/NotificationAllowContainer';
 import {NavigationConstants} from '../constants';
 import {Colors} from '../themes';
@@ -17,6 +18,7 @@ import {Colors} from '../themes';
 const StackNavigation: React.FC = () => {
   const appInitiated = useSelector(appInitializedSelector);
   const profile = useSelector(profileSelector);
+  const notificationAllowed = useSelector(notificationAllowedSelector);
 
   const RootStack = createNativeStackNavigator({
     groups: {
@@ -41,7 +43,15 @@ const StackNavigation: React.FC = () => {
       LOGGED_IN: {
         if: () => profile !== null,
         screens: {
-          Home,
+          [NavigationConstants.NOTIFICATION_ALLOW]: {
+            screen: NotificationAllowContainer,
+            options: {headerShown: false},
+            if: () => notificationAllowed === null,
+          },
+          [NavigationConstants.DASHBOARD]: {
+            screen: DashboardContainer,
+            options: {headerShown: false},
+          },
         },
       },
     },
