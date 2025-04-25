@@ -21,7 +21,7 @@ export function* initApplicationSaga() {
 
 export function* initLocalStorageDataSaga() {
   try {
-    const userData: null | {name: string} = yield call(
+    const userData: null | {first_name: string; last_name: string} = yield call(
       getStorageItem,
       StorageConstants.PROFILE_DATA,
     );
