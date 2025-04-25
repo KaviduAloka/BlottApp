@@ -3,17 +3,18 @@ import {Colors} from '../../../../themes';
 
 export default StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: Colors.BLACK,
   },
   greetingText: {
     color: Colors.WHITE,
-    fontWeight: 'bold',
     fontSize: 32,
-    marginVertical: 10,
+    fontWeight: 'bold',
     marginHorizontal: 25,
   },
-  listEmptyText: {
-    color: Colors.LIGHT_TEXT,
-    textAlign: 'center',
+  description: {
+    color: Colors.WHITE,
+    fontSize: 16,
+    marginHorizontal: 25,
   },
 });

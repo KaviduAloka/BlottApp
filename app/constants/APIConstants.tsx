@@ -1,7 +1,7 @@
 import {ENV} from '.';
 
-const {BASE_URL} = ENV.PREPROD;
+const {BASE_URL} = ENV.PROD;
 
 export const ApiEndpoints = {
-  TEST: `${BASE_URL}`,
+  getNews: `${BASE_URL}/news`,
 };

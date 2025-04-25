@@ -14,8 +14,4 @@ const navigate = (routeName: string, params?: object): void => {
   }
 };
 
-const goBack = (): void => {
-  navigationRef.current?.goBack();
-};
-
-export {navigate, goBack, navigationRef};
+export {navigate, navigationRef};
