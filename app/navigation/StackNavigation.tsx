@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {createStaticNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Auth from '../features/auth';
+import Auth from '../features/auth/containers/LoginScreen';
 import SplashScreen from '../features/splashScreen';
 import {navigationRef} from '../services/NavigationService';
 import {
@@ -10,31 +10,31 @@ import {
   profileSelector,
 } from '../store/appReducer/selectors';
 import Home from '../features/home';
+import NotificationAllowContainer from '../features/home/containers/NotificationAllowContainer';
 import {NavigationConstants} from '../constants';
-import CommonScreen from '../features/CommonScreen';
+import {Colors} from '../themes';
 
 const StackNavigation: React.FC = () => {
   const appInitiated = useSelector(appInitializedSelector);
   const profile = useSelector(profileSelector);
 
-  // PLEASE REFER: https://reactnavigation.org/docs/nesting-navigators?config=static
-
   const RootStack = createNativeStackNavigator({
     groups: {
       NOT_INITIATED: {
-        if: () => !appInitiated,
+        if: () => appInitiated === false,
         screens: {
           [NavigationConstants.SPLASHSCREEN]: {
             screen: SplashScreen,
+            options: {headerShown: false},
           },
         },
       },
       NOT_LOGGED_IN: {
         if: () => profile === null,
         screens: {
-          [NavigationConstants.AUTH]: {
+          [NavigationConstants.LOGIN]: {
             screen: Auth,
-            options: {headerTitle: 'Login Screen'},
+            options: {headerTitle: 'Login Screen', headerShown: false},
           },
         },
       },
@@ -45,11 +45,8 @@ const StackNavigation: React.FC = () => {
         },
       },
     },
-    screens: {
-      //  common screens
-      COMMON_SCREEN: {
-        screen: CommonScreen,
-      },
+    screenOptions: {
+      statusBarBackgroundColor: Colors.BLACK,
     },
   });
 

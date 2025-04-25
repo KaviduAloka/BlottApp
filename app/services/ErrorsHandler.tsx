@@ -1,5 +1,5 @@
-function* ErrorHandler(func: Function, error: any) {
-  console.log(`ERROR: ${func.name} : ${error}`);
+function* ErrorHandler(error: any) {
+  console.log(`ERROR: ${error}`);
 }
 
 export default ErrorHandler;
