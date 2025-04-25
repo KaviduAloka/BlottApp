@@ -1,7 +1,12 @@
 import React from 'react';
-import {StyleProp, TextStyle, TouchableOpacity, ViewStyle, Text} from 'react-native';
+import {
+  StyleProp,
+  TextStyle,
+  TouchableOpacity,
+  ViewStyle,
+  Text,
+} from 'react-native';
 import styles from './styles';
-import {Colors} from '../../themes';
 
 type Props = {
   disabled?: boolean;
@@ -15,7 +20,6 @@ type Props = {
 const Button: React.FC<Props> = ({
   children,
   disabled,
-  filled = true,
   style = {},
   textStyle = {},
   onPress,
@@ -27,18 +31,11 @@ const Button: React.FC<Props> = ({
       style={[
         styles.wrapper,
         {
-          backgroundColor: filled ? Colors.PURPLE : Colors.TRANSPARENT,
+          opacity: !disabled ? 1 : 0.4,
         },
         style,
       ]}>
-      <Text
-        style={[
-          styles.text,
-          {color: filled ? Colors.WHITE : Colors.PURPLE},
-          textStyle,
-        ]}>
-        {children}
-      </Text>
+      <Text style={[styles.text, textStyle]}>{children}</Text>
     </TouchableOpacity>
   );
 };
