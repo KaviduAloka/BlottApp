@@ -6,12 +6,14 @@ export type AppStateType = {
   platform: string;
   profile: null | object;
   appInitialized: boolean;
+  notificationAllowed: null | boolean;
 };
 
 const initialState: AppStateType = {
   platform: Platform.OS,
   profile: null,
   appInitialized: false,
+  notificationAllowed: null,
 };
 
 const appSlice = createSlice({
@@ -24,9 +26,13 @@ const appSlice = createSlice({
     setProfile: (state, action: PayloadAction<Object | null>) => {
       state.profile = action.payload;
     },
+    setNotificationAllowed: (state, action: PayloadAction<boolean>) => {
+      state.notificationAllowed = action.payload;
+    },
   },
 });
 
-export const {setProfile, setAppInitialized} = appSlice.actions;
+export const {setProfile, setAppInitialized, setNotificationAllowed} =
+  appSlice.actions;
 
 export default appSlice.reducer;

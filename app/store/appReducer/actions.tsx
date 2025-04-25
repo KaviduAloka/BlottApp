@@ -1,18 +1,20 @@
 import * as types from './types';
 
-type ActionReturnType = {
-  type: string;
-  payload?: object;
-};
-
-export const initApplication = (): ActionReturnType => ({
+export const initApplication = () => ({
   type: types.INIT_APPLICATION,
 });
 
-export const logout = (): ActionReturnType => ({
+export const logout = () => ({
   type: types.LOGOUT,
 });
 
-export const requestCountries = (): ActionReturnType => ({
+export const requestCountries = () => ({
   type: types.REQUEST_COUNTRIES,
+});
+
+export const allowNotification = (payload: {
+  notificationsAllowed: boolean;
+}) => ({
+  type: types.ALLOW_NOTIFICATIONS,
+  payload,
 });
