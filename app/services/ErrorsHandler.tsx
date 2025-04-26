@@ -1,7 +1,7 @@
 import {navigateToErrorPage} from '../navigation/navigationHelpers';
 
-function* ErrorHandler(error: string) {
-  navigateToErrorPage(error);
+function* ErrorHandler(error: any) {
+  navigateToErrorPage(error.toString());
 }
 
 export default ErrorHandler;

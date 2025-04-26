@@ -4,4 +4,5 @@ export type NewsListItemType = {
   source: string;
   summary: string;
   url: string;
+  image: string;
 };

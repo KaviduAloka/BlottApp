@@ -55,7 +55,3 @@ export function* allowNotificationsSaga(
     yield call(ErrorHandler, error);
   }
 }
-
-export function* logoutSaga() {
-  yield put(setProfile(null));
-}
