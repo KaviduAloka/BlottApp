@@ -40,12 +40,14 @@ const Auth: React.FC = () => {
             placeholder="First name"
             value={firstName}
             onChangeText={setFirstName}
+            textContentType="name"
           />
           <SizedBox height={20} />
           <TextInput
             placeholder="Last name"
             value={lastName}
             onChangeText={setLastName}
+            textContentType="familyName"
           />
         </View>
         <Button

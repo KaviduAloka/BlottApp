@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
-import {createStaticNavigation} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Auth from '../features/auth/containers/LoginScreen';
 import SplashScreen from '../features/splashScreen';
@@ -14,55 +14,62 @@ import DashboardContainer from '../features/home/containers/DashboardContainer';
 import NotificationAllowContainer from '../features/home/containers/NotificationAllowContainer';
 import {NavigationConstants} from '../constants';
 import {Colors} from '../themes';
+import ErrorPageContainer from '../features/home/containers/ErrorPageContainer';
 
 const StackNavigation: React.FC = () => {
   const appInitiated = useSelector(appInitializedSelector);
   const profile = useSelector(profileSelector);
   const notificationAllowed = useSelector(notificationAllowedSelector);
 
-  const RootStack = createNativeStackNavigator({
-    groups: {
-      NOT_INITIATED: {
-        if: () => appInitiated === false,
-        screens: {
-          [NavigationConstants.SPLASHSCREEN]: {
-            screen: SplashScreen,
-            options: {headerShown: false},
-          },
-        },
-      },
-      NOT_LOGGED_IN: {
-        if: () => profile === null,
-        screens: {
-          [NavigationConstants.LOGIN]: {
-            screen: Auth,
-            options: {headerTitle: 'Login Screen', headerShown: false},
-          },
-        },
-      },
-      LOGGED_IN: {
-        if: () => profile !== null,
-        screens: {
-          [NavigationConstants.NOTIFICATION_ALLOW]: {
-            screen: NotificationAllowContainer,
-            options: {headerShown: false},
-            if: () => notificationAllowed === null,
-          },
-          [NavigationConstants.DASHBOARD]: {
-            screen: DashboardContainer,
-            options: {headerShown: false},
-          },
-        },
-      },
-    },
-    screenOptions: {
-      statusBarBackgroundColor: Colors.BLACK,
-    },
-  });
+  const Stack = createNativeStackNavigator();
 
-  const Navigation = createStaticNavigation(RootStack);
-
-  return <Navigation ref={navigationRef} />;
+  return (
+    <NavigationContainer ref={navigationRef}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          statusBarBackgroundColor: Colors.BLACK,
+        }}>
+        {appInitiated === false ? (
+          //  application not initialized
+          <Stack.Group>
+            <Stack.Screen
+              name={NavigationConstants.SPLASHSCREEN}
+              component={SplashScreen}
+            />
+          </Stack.Group>
+        ) : profile === null ? (
+          //  not logged in
+          <Stack.Group>
+            <Stack.Screen name={NavigationConstants.LOGIN} component={Auth} />
+          </Stack.Group>
+        ) : notificationAllowed === null ? (
+          //  user logged in
+          //  notification allowed status has not set
+          <Stack.Group>
+            <Stack.Screen
+              name={NavigationConstants.NOTIFICATION_ALLOW}
+              component={NotificationAllowContainer}
+            />
+          </Stack.Group>
+        ) : (
+          //  user logged in
+          //  notification allowed status is set
+          <Stack.Group>
+            <Stack.Screen
+              name={NavigationConstants.DASHBOARD}
+              component={DashboardContainer}
+            />
+          </Stack.Group>
+        )}
+        <Stack.Screen
+          name={NavigationConstants.ERROR_PAGE}
+          component={ErrorPageContainer}
+          options={{headerShown: false, animation: 'fade_from_bottom'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 export default React.memo(StackNavigation, () => false);

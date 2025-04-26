@@ -1,5 +1,7 @@
+import {navigateToErrorPage} from '../navigation/navigationHelpers';
+
 function* ErrorHandler(error: any) {
-  console.log(`ERROR: ${error}`);
+  navigateToErrorPage(error.toString());
 }
 
 export default ErrorHandler;

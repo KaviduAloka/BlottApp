@@ -4,7 +4,7 @@ import {Platform} from 'react-native';
 
 export type AppStateType = {
   platform: string;
-  profile: null | object;
+  profile: null | {first_name: string; last_name: string};
   appInitialized: boolean;
   notificationAllowed: null | boolean;
 };
@@ -23,7 +23,10 @@ const appSlice = createSlice({
     setAppInitialized: (state, action: PayloadAction<boolean>) => {
       state.appInitialized = action.payload;
     },
-    setProfile: (state, action: PayloadAction<Object | null>) => {
+    setProfile: (
+      state,
+      action: PayloadAction<{first_name: string; last_name: string} | null>,
+    ) => {
       state.profile = action.payload;
     },
     setNotificationAllowed: (state, action: PayloadAction<boolean>) => {

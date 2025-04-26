@@ -4,10 +4,6 @@ export const initApplication = () => ({
   type: types.INIT_APPLICATION,
 });
 
-export const logout = () => ({
-  type: types.LOGOUT,
-});
-
 export const requestCountries = () => ({
   type: types.REQUEST_COUNTRIES,
 });
